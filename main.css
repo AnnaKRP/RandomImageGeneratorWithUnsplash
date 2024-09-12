@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Rakkas&display=swap');
+
+body {
+    background-color: #F8EDE3;
+    color: C5705D;
+    font-family: "Amita", serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #ranImg {
+    max-height: 500px;
+  }
+
+  h1 {
+    font-size: 56px;
+  }
+
+  .imageDetails {
+    background-color: #C5705D;
+    margin-top: 20px;
+    padding: 10px 30px;
+    color: white;
+    width: fit-content;
+    border-radius: 10px;
+  }
