@@ -12,17 +12,49 @@ body {
 
   #ranImg {
     max-height: 500px;
+    border-radius: 10px;
+    margin: 20px;
   }
 
   h1 {
     font-size: 56px;
+    margin: 0;
+  }
+
+  p {
+    margin-top: 0;
+    padding: 2px 5px;
+    margin: 2px;
+    font-size: 18px;
+  }
+
+  #creator, #likes {
+    color: #66392e;
   }
 
   .imageDetails {
-    background-color: #C5705D;
-    margin-top: 20px;
+    margin-top: 14px;
     padding: 10px 30px;
-    color: white;
+    color: #C5705D;
     width: fit-content;
     border-radius: 10px;
+    min-width: 30%;
+    border: #C5705D solid 3px;
+  }
+
+  .imageDetails button {
+    font-size: 36px;
+    font-weight: bold;
+    width: 70px;
+    height: 70px;
+    background-color: #C5705D;
+    color:#F8EDE3;
+    border: #F8EDE3 solid 2px;
+    border-radius: 50%;
+  }
+
+  button:hover {
+    border: #F8EDE3 solid 2px;
+    transform: rotate(260deg);
+    transition: 300ms ease all;
   }

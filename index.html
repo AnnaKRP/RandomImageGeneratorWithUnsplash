@@ -11,21 +11,20 @@
 
     <body>
         <h1>Random Image Generator</h1>
+        <p>Press on the image to see it on the web.</p>
 
         <div class="imageContainer">
-            <a id="imgLink" href="#">
-            <img alt="" id="ranImg" src=""/>
-            </a>
+            <a id="imgLink" href="#"><img alt="" id="ranImg" src=""/></a>
         </div>
-        
-        <p>Press on the image to see it on the web.</p>
 
         <div class="imageDetails">
             <p>Photo by <b><span id="creator" href="#">NAME</span></b></p>
             <p>Likes: <b><span id="likes">0</span></b></p>
+            <button onclick="" id="refreshButton"> ↻ </button>
         </div>
 
         <script>
+
             let clientID = "GGjSL565mGUDl37Q_Rx_SZdGRUwvjoVUxKOTE5A1R0E";
             let endpoint = `https://api.unsplash.com/photos/random/?client_id=${clientID}`;
 
@@ -34,19 +33,28 @@
             let creator = document.querySelector("#creator");
             let likes = document.querySelector("#likes");
 
-            fetch(endpoint)
-                .then (function (response){
-                    return response.json();
-                })
-                .then (function (jsonData){
-                    imgElement.src = jsonData.urls.regular;
-                    imgLink.setAttribute("href", jsonData.links.html);
-                    creator.innerHTML = jsonData.user.name;
-                    likes.innerHTML = jsonData.user.total_likes;
-                })
-                .catch(function (error) {
-                console.error('There has been a problem with your fetch operation:', error);
-            });
+            function fetchImage() {
+                fetch(endpoint)
+                    .then (function (response){
+                        return response.json();
+                    })
+                    .then (function (jsonData){
+                        imgElement.src = jsonData.urls.regular;
+                        imgLink.setAttribute("href", jsonData.links.html);
+                        creator.innerHTML = jsonData.user.name;
+                        likes.innerHTML = jsonData.user.total_likes;
+                    })
+                    .catch(function (error) {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+            }
+
+            // Fetch image when the button is clicked
+            refreshButton.addEventListener("click", fetchImage);
+
+            // Load the first image on page load
+            fetchImage();
+
         </script>
     </body>
 
