@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '.')));
 // API route to fetch a random image from Unsplash
 app.get('/api/random-image', async (req, res) => {
     try {
-      const clientID = process.env.MY_API_KEY;
+    const clientID = process.env.NEXT_PUBLIC_MY_API_KEY;
       const response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${clientID}`);
       const jsonData = await response.json();
   
