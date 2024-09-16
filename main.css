@@ -2,7 +2,7 @@
 
 body {
     background-color: #F8EDE3;
-    color: C5705D;
+    color: #C5705D;
     font-family: "Amita", serif;
     text-align: center;
     display: flex;
@@ -12,6 +12,7 @@ body {
 
   #ranImg {
     max-height: 500px;
+    max-width: 100%;
     border-radius: 10px;
     margin: 20px;
   }
@@ -51,10 +52,69 @@ body {
     color:#F8EDE3;
     border: #F8EDE3 solid 2px;
     border-radius: 50%;
+    transition: 300ms ease all;
   }
 
   button:hover {
-    border: #F8EDE3 solid 2px;
-    transform: rotate(260deg);
-    transition: 300ms ease all;
+    animation: rotateInfinite 2s linear infinite;
   }
+  
+  @keyframes rotateInfinite {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+/* Media Queries for Responsiveness */
+
+/* For tablets */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 48px; 
+  }
+
+  p {
+      font-size: 16px; 
+  }
+
+  .imageDetails {
+      padding: 10px 15px;
+      min-width: 50%; 
+  }
+
+  .imageDetails button {
+      width: 60px; 
+      height: 60px; 
+      font-size: 28px; 
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  h1 {
+      font-size: 26px; 
+  }
+
+  p {
+      font-size: 14px; 
+  }
+
+  .imageContainer {
+      width: 80%; 
+  }
+
+  .imageDetails {
+      padding: 10px 10px; 
+      min-width: 80%; 
+  }
+
+  .imageDetails button {
+      width: 50px; 
+      height: 50px; 
+      font-size: 24px; 
+  }
+}
