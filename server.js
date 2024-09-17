@@ -1,44 +1,45 @@
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url'; // Required for __dirname-like behavior in ES modules
-import dotenv from 'dotenv';
-import fetch from 'node-fetch'; // Import node-fetch for the Unsplash API call
+const express = require('express');
+const dotenv = require('dotenv');
+const path = require('path');
+const fetch = require('node-fetch'); // Use node-fetch with require
 
 dotenv.config();
 
 const app = express();
 
-// These two lines are used to simulate __dirname in an ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// __dirname is already available in CommonJS, no need to define it.
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve static files (like index.html and main.css) from the current directory
-app.use(express.static(path.join(__dirname, '.')));
-
-// API route to fetch a random image from Unsplash
-app.get('/api/random-image', async (req, res) => {
-    try {
-    const clientID = process.env.NEXT_PUBLIC_MY_API_KEY;
-      const response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${clientID}`);
-      const jsonData = await response.json();
-  
-      // Extract necessary data from the Unsplash response
-      const imageData = {
-        url: jsonData.urls.regular, // The image URL
-        link: jsonData.links.html, // The image's Unsplash page link
-        creator: jsonData.user.name, // The photographer's name
-        likes: jsonData.likes, // Number of likes
-      };
-  
-      // Send the extracted data to the front-end
-      res.json(imageData);
-    } catch (error) {
-      console.error('Error fetching image:', error);
-      res.status(500).send('Error fetching image');
-    }
-  });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// Serve the index.html file at the root URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+// API route to fetch a random image
+app.get('/api/random-image', async (req, res) => {
+  try {
+    const clientID = process.env.NEXT_PUBLIC_MY_API_KEY;
+    const response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${clientID}`);
+    const jsonData = await response.json();
+    res.json({
+      url: jsonData.urls.regular,
+      link: jsonData.links.html,
+      creator: jsonData.user.name,
+      likes: jsonData.user.total_likes
+    });
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    res.status(500).send('Error fetching image');
+  }
+});
+
+// Start the server if not in production (for local dev)
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+// Export the app for Vercel (CommonJS)
+module.exports = app;
