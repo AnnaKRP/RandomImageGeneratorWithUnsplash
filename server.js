@@ -1,13 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
-const fetch = require('node-fetch'); // Use node-fetch with require
+const fetch = require('node-fetch');
 
 dotenv.config();
 
 const app = express();
 
-// __dirname is already available in CommonJS, no need to define it.
+// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve the index.html file at the root URL
