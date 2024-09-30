@@ -26,5 +26,16 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
+
+// Use the random image API
+app.use('/api', randomImageApi);
+
+// Log incoming requests
+app.use((req, res, next) => {
+  console.log(`Received request: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+
 // Export the app for Vercel (CommonJS)
 module.exports = app;
