@@ -4,10 +4,6 @@
       {
         "src": "server.js",
         "use": "@vercel/node"
-      },
-      {
-        "src": "api/*.js",
-        "use": "@vercel/node"
       }
     ],
     "routes": [
@@ -19,9 +15,6 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ],
-    "env": {
-      "NEXT_PUBLIC_MY_API_KEY": "@next_public_my_api_key"
-    }
+    ]
   }
   
