@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Random Image Generator</h1>
+    <p>Press on the image to see it on the web.</p>
+    
+    <div class="imageContainer">
+        <a id="imgLink" href="#"><img alt="" id="ranImg" src="" /></a>
+    </div>
+
+    <div class="imageDetails">
+        <p>Photo by <b><span id="creator">NAME</span></b></p>
+        <p>Likes: <b><span id="likes">0</span></b></p>
+        <button id="refreshButton"> ↻ </button>
+    </div>
+
+    <script>
+        // Function to fetch and display the image
+        function fetchImage() {
+            fetch('/api/random-image')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the image, link, creator, and likes
+                    document.getElementById('ranImg').src = data.url;
+                    document.getElementById('imgLink').href = data.link;
+                    document.getElementById('creator').textContent = data.creator;
+                    document.getElementById('likes').textContent = data.likes;
+                })
+                .catch(err => console.error(err));
+        }
+    
+        // Event listener for the refresh button
+        document.getElementById('refreshButton').addEventListener('click', fetchImage);
+    
+        // Fetch an image on page load
+        fetchImage();
+    </script>
+    
+</body>
+</html>
